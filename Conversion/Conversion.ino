@@ -23,9 +23,9 @@ void loop() {
   Serial.print(ay);Serial.print("\t");
   Serial.print(az);Serial.print("\n");
   Serial.println("Gyro values");
-  Serial.print(anglex);Serial.print("\t");
-  Serial.print(angley);Serial.print("\t");
-  Serial.print(anglez);Serial.print("\t");
+  Serial.print(anglex);Serial.print("\t"); // X angle is the roll value
+  Serial.print(angley);Serial.print("\t"); // Y angle is the pitch value
+  Serial.print(anglez);Serial.print("\t"); // Z angle is the yaw
   
 }
 
@@ -44,9 +44,9 @@ void get_angles() // The default full scale range is ± 250
   int16_t raw_gx,raw_gy,raw_gz;
   mpu.getRotation(&raw_gx, &raw_gy, &raw_gz);
   float angleAccX = 180*atan2(ay, sqrt(ax*ax+az*az))/ PI; // Effect due to angular acceleration
-  float angleAccY = -180*atan2(ax, sqrt(ay*ay+az*az)) / PI;
+  float angleAccY = -180*atan2(ax, sqrt(ay*ay+az*az)) / PI; // Effect due to angular acceleration
 
-  float gx = ((float)raw_gx) / 131.0;
+  float gx = ((float)raw_gx) / 131.0; //LSB sensitivity is 131 LSB/dps for 250 dps
   float gy = ((float)raw_gy) / 131.0;
   anglez = ((float)raw_gz) / 131.0;
 
